@@ -98,6 +98,7 @@ http://tieba.baidu.com/p/4104419687
 
 http://tieba.baidu.com/p/4103080548
 
+![](/candle/02/AD.jpg)
 
 ███麻瓜新闻███
 -------------
@@ -194,3 +195,5 @@ http://tieba.baidu.com/p/4088386807
 您可以选择署上任何名字。
 
 我们既不承认也不否认我们将会采用您的作品。
+
+我们的邮箱: candle.briefing@qq.com
