@@ -1,3 +1,5 @@
+---
+---
 <html>
 	<head>
 		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
@@ -6,11 +8,29 @@
                                 left:100;
                                 right:100;
                         }
+                        body{
+                                margin-left: 10%;
+                                margin-right: 10%;
+                                color: #66327C;
+                        }
+                        ul{
+                                list-style-type: none;
+                        }
                 </style>
-		<title>Kugelschreiber;Union</title>
+		<title>K;Union</title>
 	</head>
 	<body>
-                <h1>Kugelschreiber;Union</h1>
-                <img src="images/flag.svg"/>
+                <h1>K;Union</h1>
+                <h2>Candle简报</h2>
+                <ul>
+                {% for p in site.posts %}
+                        <li>
+                                第{{ p.index }}期
+                                <a href="{{ p.url }}">
+                                {{ p.title }}
+                                </a>
+                        </li>
+                {% endfor %}
+                </ul>
 	</body>
 </html>

@@ -1,0 +1,28 @@
+---
+---
+<html>
+	<head>
+		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+		<style type="text/css">
+                .title-logo{
+                        width: 10em;
+                }
+                .content{
+                       color: #66327C;
+                       margin-left:10%;
+                       margin-right:10%;
+                       font-size: 1.5em;
+                }
+		</style>
+		<title>{{page.title}}——Candle简报总第{{page.index}}期</title>
+	</head>
+	<body>
+                <div class="content">
+                <img class="title-logo" src="/images/candle.jpg"/>
+                <h1>{{ page.title }}</h1>
+                <h4>总{{ page.index }}期</h6>
+                <h4>责任编辑: {{ page.editor }}  {{ page.publisher }}出品</h6>
+                {{ content }}
+                </div>
+	</body>
+</html>
