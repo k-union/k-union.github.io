@@ -48,6 +48,7 @@
         setTimeout(function(){
             appendReply(reply,'red');
         },500*Math.atan(reply.length/10));
+        $("#input").val('');
     })
     function appendReply(text,color){
         var node=document.createElement("p");
