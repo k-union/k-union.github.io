@@ -80,6 +80,20 @@
         }
         return ans ? ans : random_reply();
     }
+    function start_conversation(text){
+        var red=0;
+        function tern(){
+            var x=0;
+            appendReply(text, red ? 'red' : 'green');
+            console.log(text);
+            text=get_reply(text);
+            if(x++<1000){
+                setTimeout(tern,300);
+                red=!red;
+            }
+        }
+        setTimeout(tern,300);
+    }
 </script>
 
   </body>
