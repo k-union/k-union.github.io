@@ -1,0 +1,68 @@
+---
+layout: base
+---
+
+<style>
+    #display_reply > p{
+        font-size: 2em;
+    }
+</style>
+
+<h1>Virtual Khwxfawyk——虚拟K神</h1>
+
+<div id="loading_data">
+    <strong>正在加载数据...</strong>
+</div>
+
+<div id="main">
+    <label>和K神说点什么</label>
+    <textarea id="input" class="form-control"></textarea>
+    <button id="clc_btn" class="btn btn-block">发送</button>
+    <section id="display_reply"></section>
+</div>
+<script>
+    var data={words:[],replies:[]};
+    $.getJSON("/vk/data.json",{},function(dt){
+        data=dt;
+        $("#loading_data").hide();
+    });
+    $("#clc_btn").on("click",function(){
+        var text=$("#input").val();
+        var reply=get_reply(text);
+        appendReply(text,'green');
+        console.log(500*Math.atan(reply.length/10));
+        setTimeout(function(){
+            appendReply(reply,'red');
+        },500*Math.atan(reply.length/10));
+    })
+    function appendReply(text,color){
+        var node=document.createElement("p");
+        $(node).css('color',color || 'black');
+        $(node).text(text);
+        $("#display_reply").prepend(node);
+    }
+    function random_reply(){
+        return data.replies[Math.ceil(
+            Math.random()*data.replies.length)].content;
+    }
+    function get_reply(str){
+        var max_score=0,ans;
+        var history=[],vect={};
+        for(var i=0;i<data.words.length;i++){
+            if( str.includes(data.words[i]) &&
+                !history.some(function(w){w.includes(data.words[i])})){
+                vect[i]=true;
+                history.push(data.words[i]);
+            }
+        }
+        for(var i=0;i<data.replies.length;i++){
+            var score=data.replies[i].vect.map(function(x){return vect[x]})
+                .reduceRight(function(x,y){return x+(y ? 1 : 0);},0);
+            if(score > max_score){
+                max_score=score;
+                ans=data.replies[i].content;
+            }
+        }
+        return ans ? ans : random_reply();
+    }
+</script>
