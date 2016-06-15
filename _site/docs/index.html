@@ -54,7 +54,7 @@
 		<div id="app">
 			<input id="keywords" v-model="keywords"/>
 			<template v-for="thread in threads">
-			<div v-if="fit(thread.title, thread.summary)" v-on:click="open(thread.kz)" class="thread">
+			<div v-if="fit(thread.title, thread.summary, thread.author)" v-on:click="open(thread.kz)" class="thread">
 				<h2 class="title">{{thread.title}}</h2>
 				<p class="author">{{thread.author}}</p>
 				<div class="summary">{{thread.summary}}</div>
@@ -70,12 +70,11 @@
 					threads: threads,
 				},
 				methods:{
-					fit: function(title, summary){
+					fit: function(title, summary, author){
 						return this.keywords=="" || this.keywords.split(" ")
 							.some(function(t){
 								var r=new RegExp(t);
-								console.log(title);
-								return title.match(r) || summary.match(r);
+								return title.match(r) || summary.match(r) || author.match(r);
 							});
 					},
 					open: function(kz){
