@@ -74,7 +74,7 @@
 						return this.keywords=="" || this.keywords.split(" ")
 							.some(function(t){
 								var r=new RegExp(t);
-								return title.match(r) || summary.match(r) || author.match(r);
+								return title.match(r) || summary.match(r);
 							});
 					},
 					open: function(kz){
