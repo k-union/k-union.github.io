@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 #encoding=UTF-8
-require 'net/http'
-require 'cgi'
+require 'mechanize'
 require 'json'
 require 'yaml'
 require 'nokogiri'
@@ -12,9 +11,10 @@ $header={
         "Connection"=>"keep-alive",
         "User-Agent"=>"Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36",
 }
-$http=Net::HTTP.new "tieba.baidu.com"
+$agent = Mechanize.new
+$agent.user_agent_alias = 'Windows Firefox'
 def get index
-        doc=Nokogiri::HTML.parse $http.get("http://tieba.baidu.com/f?kw=%E8%BD%AC%E5%9F%BA%E5%9B%A0&ie=utf-8&tab=good&cid=&pn=#{index*50}", $header).body
+        doc=$agent.get("http://tieba.baidu.com/f?kw=%E8%BD%AC%E5%9F%BA%E5%9B%A0&ie=utf-8&tab=good&cid=&pn=#{index*50}")
         flag=doc.at("//code[@id='pagelet_html_frs-list/pagelet/thread_list']/comment()")
         doc=Nokogiri::HTML.parse flag.text unless flag.nil?
         doc.xpath(".//li[contains(@class,'j_thread_list') and @data-field]").map do |li|
@@ -43,8 +43,7 @@ def get index
         end
 end
 
-File.write "zjy_threads.json", (0..800/50).map{|i|
-        sleep rand 1..5
+File.write "zjy_threads.json", (0..850/50).map{|i|
         puts "GET PAGE #{i}"
         get(i)
 }.flatten.to_json
